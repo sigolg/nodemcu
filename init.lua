@@ -1,5 +1,3 @@
-
-SIGNALMODE = wifi.PHYMODE_N
 -- 4F unicorn info
 SSID="sigolCouple"
 PASSWORD="96239623"
@@ -22,7 +20,6 @@ function startup()
     else
         print("Wifi Connected")
         print("")
-        print("")
         file.close("init.lua")
         -- the actual application is stored in 'application.lua'
         dofile("dht22_mqtt.lua")
@@ -31,7 +28,7 @@ end
  
 print("Connecting to WiFi access point...")
 wifi.setmode(wifi.STATION)
---wifi.setphymode(SIGNALMODE)
+wifi.setphymode(wifi.PHYMODE_N)
 wifi.sta.config(SSID, PASSWORD)
 wifi.sta.connect()
 if client_ip ~= "" then
@@ -46,6 +43,6 @@ tmr.alarm(1, 1000, 1, function()
         print("WiFi connection established, IP address: " .. wifi.sta.getip())
         wifi.sta.getip()
         print("Waiting...")
-        tmr.alarm(0, 5000, 0, startup)
+        tmr.alarm(0, 3000, 0, startup)
     end
 end)
