@@ -29,7 +29,6 @@ tmr.alarm(1, 1000, 1, function()
     else
         tmr.stop(1)
         print("WiFi connection established, IP address: " .. wifi.sta.getip())
-        wifi.sta.getip()
         print("Waiting...")
         tmr.alarm(0, 3000, 0, startup)
     end

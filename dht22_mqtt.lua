@@ -5,7 +5,11 @@ time_between_sensor_readings = 10*1000*1000 --60000 means 60sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
- 
+m:on("offline", function(client) print ("offline")
+    print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+    node.dsleep(time_between_sensor_readings)    
+end)
+
 --read DHT11 temp, humi data function
 function readDHT()
     status, temp, humi = dht.read(pin)
@@ -24,7 +28,7 @@ end
 function sendData(temp,humi)
     -- conection to thingspeak.com
     print("Sending data to thingspeak.com")
-    m:connect( "mqtt.thingspeak.com" , 1883, 0, function(client)
+    m:connect( "mqtt.thingspeak.com" , 1883, 0, 0, function(client)
         print("Connected to MQTT")
         print("  IP: mqtt.thingspeak.com")
         print("  Port: 1883")
@@ -32,7 +36,10 @@ function sendData(temp,humi)
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings)    
         end)
-    end)
+    end,
+    function(client, reason)
+        print("failed reason: " .. reason)
+    end)    
 end
 
 readDHT()
