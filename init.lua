@@ -36,13 +36,14 @@ if client_ip ~= "" then
 end
 
 tmr.alarm(1, 1000, 1, function()
-    if wifi.sta.getip() == nil then
+    if wifi.sta.status() ~= 1 then
         print("Waiting for IP address...")
+        wifi.sta.connect()
     else
         tmr.stop(1)
         print("WiFi connection established, IP address: " .. wifi.sta.getip())
         wifi.sta.getip()
         print("Waiting...")
-        tmr.alarm(0, 3000, 0, startup)
+        tmr.alarm(0, 5000, 0, startup)
     end
 end)
