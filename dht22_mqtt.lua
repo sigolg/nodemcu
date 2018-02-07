@@ -10,8 +10,8 @@ m = mqtt.Client(channelID, 120)
 function readDHT()
     status, temp, humi = dht.read(pin)
     if status == dht.OK then
-        print(temp)
-        print(humi)
+        print("Temperature: "..temp.."C")
+        print("Humidity: "..humi.."%")
     elseif status == dht.ERROR_CHECKSUM then
         print( "DHT Checksum error." )
     elseif status == dht.ERROR_TIMEOUT then
