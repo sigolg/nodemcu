@@ -5,10 +5,6 @@ time_between_sensor_readings = 10*1000*1000 --60000 means 60sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
-m:on("offline", function(client) print ("offline")
-    print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-    node.dsleep(time_between_sensor_readings)    
-end)
 
 --read DHT11 temp, humi data function
 function readDHT()
@@ -39,6 +35,8 @@ function sendData(temp,humi)
     end,
     function(client, reason)
         print("failed reason: " .. reason)
+        print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+        node.dsleep(time_between_sensor_readings)
     end)    
 end
 
