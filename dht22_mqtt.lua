@@ -35,8 +35,8 @@ function sendData(temp,humi)
     end,
     function(client, reason)
         print("failed reason: " .. reason)
-        print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-        node.dsleep(time_between_sensor_readings)
+        print("Going to deep sleep for 60 seconds")
+        node.dsleep(60*1000*1000)
     end)
 end
 

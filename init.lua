@@ -30,20 +30,24 @@ print("Connecting to WiFi access point...")
 wifi.setmode(wifi.STATION)
 wifi.setphymode(wifi.PHYMODE_N)
 wifi.sta.config(SSID, PASSWORD)
-wifi.sta.connect()
 if client_ip ~= "" then
     wifi.sta.setip({ip=client_ip,netmask=client_netmask,gateway=client_gateway})
 end
+wifi.sta.connect()
 
+i = 1
 tmr.alarm(1, 1000, 1, function()
-    if wifi.sta.status() ~= 1 then
+    if wifi.sta.getrssi() == nil then
+        if i == 30 then
+            print("Going to deep sleep for 300 seconds")
+            node.dsleep(300*1000*1000)
+        end
         print("Waiting for IP address...")
-        wifi.sta.connect()
+        i = i + 1
     else
         tmr.stop(1)
         print("WiFi connection established, IP address: " .. wifi.sta.getip())
-        wifi.sta.getip()
         print("Waiting...")
-        tmr.alarm(0, 5000, 0, startup)
+        tmr.alarm(0, 3000, 0, startup)
     end
 end)
