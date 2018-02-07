@@ -26,7 +26,7 @@ i = 1
 tmr.alarm(1, 1000, 1, function()
     if wifi.sta.getrssi() == nil then
         if i == 30 then
-            print("Going to deep sleep for 30 seconds")
+            print("Going to deep sleep for 300 seconds")
             node.dsleep(300*1000*1000)
         end
         print("Waiting for IP address...")
