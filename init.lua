@@ -16,7 +16,7 @@ end
 print("Connecting to WiFi access point...")
 wifi.setmode(wifi.STATION)
 wifi.setphymode(wifi.PHYMODE_N)
-wifi.sta.config(SSID, PASSWORD)
+wifi.sta.config("unicorn_00", "00000034a1")
 wifi.sta.connect()
 if client_ip ~= "" then
     wifi.sta.setip({ip=client_ip,netmask="255.255.255.0",gateway="172.30.1.254"})
