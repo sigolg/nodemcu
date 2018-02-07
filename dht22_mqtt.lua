@@ -1,7 +1,7 @@
 pin = 5 -- dht11 signal pin
 channelID = "409502"
 writeKey = "WKMTV2VSMBR2XU7P"
-time_between_sensor_readings = 10*1000*1000 --60000 means 60sec
+time_between_sensor_readings = 300*1000*1000 --60000 means 60sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
@@ -35,8 +35,8 @@ function sendData(temp,humi)
     end,
     function(client, reason)
             print("failed reason: " .. reason)
-            print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-            node.dsleep(time_between_sensor_readings)
+            print("Going to deep sleep for 60 seconds")
+            node.dsleep(60*1000*1000)
     end)
 end
 
