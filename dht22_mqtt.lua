@@ -31,6 +31,7 @@ function sendData(temp,humi)
         client:publish("channels/"..channelID.."/publish/"..writeKey,"field1="..temp.."&field2="..humi,0,0,functuin(client))
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings)          
+        end)
     end)
 end
 
