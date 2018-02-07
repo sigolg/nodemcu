@@ -10,8 +10,8 @@ m = mqtt.Client(channelID, 120)
 function readDHT()
     status, temp, humi = dht.read(pin)
     if status == dht.OK then
-        print(temp)
-        print(humi)
+        print("Temp: "..temp.."C")
+        print("Humi: "..humi.."%")
     elseif status == dht.ERROR_CHECKSUM then
         print( "DHT Checksum error." )
     elseif status == dht.ERROR_TIMEOUT then
@@ -31,6 +31,11 @@ function sendData(temp,humi)
         client:publish("channels/"..channelID.."/publish/"..writeKey,"field5="..temp.."&field6="..humi,0,0,functuin(client))
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings)          
+    end,
+        function(client, reason)
+            print("failed reason: " .. reason)
+            print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+            node.dsleep(time_between_sensor_readings)
     end)
 end
 
