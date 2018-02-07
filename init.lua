@@ -17,19 +17,20 @@ print("Connecting to WiFi access point...")
 wifi.setmode(wifi.STATION)
 wifi.setphymode(wifi.PHYMODE_N)
 wifi.sta.config("ktEgg_095", "moda29379")
-wifi.sta.connect()
 if client_ip ~= "" then
     wifi.sta.setip({ip=client_ip,netmask="255.255.255.0",gateway="192.168.1.1"})
 end
+wifi.sta.connect()
 
 tmr.alarm(1, 1000, 1, function()
-    if wifi.sta.status() ~= 1 then
+    if wifi.sta.getrssi() == nil then
         print("Waiting for IP address...")
-        wifi.sta.connect()
     else
         tmr.stop(1)
         print("WiFi connection established, IP address: " .. wifi.sta.getip())
         print("Waiting...")
-        tmr.alarm(0, 3000, 0, startup)
+        tmr.alarm(0, 1000, 0, startup)
     end
 end)
+
+
