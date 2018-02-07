@@ -28,7 +28,7 @@ function sendData(temp,humi)
         print("Connected to MQTT")
         print("  IP: mqtt.thingspeak.com")
         print("  Port: 1883")
-        client:publish("channels/"..channelID.."/publish/"..writeKey,"field5="..temp.."&field6="..humi,0,0,functuin(client))
+        client:publish("channels/"..channelID.."/publish/"..writeKey,"field3="..temp.."&field4="..humi,0,0,functuin(client))
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings)          
     end,
