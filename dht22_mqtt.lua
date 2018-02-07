@@ -10,8 +10,8 @@ m = mqtt.Client(channelID, 120)
 function readDHT()
     status, temp, humi = dht.read(pin)
     if status == dht.OK then
-        print("Temperature: "..temp)
-        print("Humidity: "..humi)
+        print("Temperature: "..temp.."C")
+        print("Humidity: "..humi.."%")
     elseif status == dht.ERROR_CHECKSUM then
         print( "DHT Checksum error." )
     elseif status == dht.ERROR_TIMEOUT then
@@ -28,10 +28,9 @@ function sendData(temp,humi)
         print("Connected to MQTT")
         print("  IP: mqtt.thingspeak.com")
         print("  Port: 1883")
-        client:publish("channels/"..channelID.."/publish/"..writeKey,"field1="..temp.."&field2="..humi,0,0,functuin(client)
+        client:publish("channels/"..channelID.."/publish/"..writeKey,"field1="..temp.."&field2="..humi,0,0,functuin(client))
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings)          
-        end)
     end)
 end
 
