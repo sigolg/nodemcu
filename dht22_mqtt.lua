@@ -20,8 +20,6 @@ function readDHT()
     dht = nil
 end
 
-
-
 --send data to thingspeak
 function sendData(temp,humi)
     -- conection to thingspeak.com
