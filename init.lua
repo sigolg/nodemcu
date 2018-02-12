@@ -1,18 +1,22 @@
 -- 4F unicorn info
-SSID="sigolCouple"
-PASSWORD="96239623"
---client_ip="172.30.1.101"     -- 101부터 순차적으로 사용
---client_netmask="255.255.255.0"
---client_gateway="172.30.1.254"
+--SSID="sigolCouple"
+--PASSWORD="96239623"
+client_ip="172.30.1.120"     -- 101부터 순차적으로 사용
+client_netmask="255.255.255.0"
+client_gateway="172.30.1.254"
 -- 6F egg info
 --SSID="ktEgg_095"
 --PASSWORD="moda29379"
 --client_ip="192.168.1.101"    -- 101부터 순차적으로 사용 
 --client_netmask="255.255.255.0"
 --client_gateway="192.168.1.1"
-client_ip=""
-client_netmask=""
-client_gateway=""
+--client_ip=""
+--client_netmask=""
+--client_gateway=""
+station_cfg={}
+station_cfg.ssid="unicorn_00"
+station_cfg.pwd="00000034a1"
+
 
 function startup()
     if file.open("init.lua") == nil then
@@ -29,7 +33,7 @@ end
 print("Connecting to WiFi access point...")
 wifi.setmode(wifi.STATION)
 wifi.setphymode(wifi.PHYMODE_N)
-wifi.sta.config(SSID, PASSWORD)
+wifi.sta.config(station_cfg)
 if client_ip ~= "" then
     wifi.sta.setip({ip=client_ip,netmask=client_netmask,gateway=client_gateway})
 end
