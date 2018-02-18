@@ -1,0 +1,20 @@
+온도 초과 알람
+https://api.pushbullet.com/v2/pushes
+o.49JfPHG2iZiXrjAmjo7yCxWmealQmadD
+112232
+application/json
+api.pushbullet.com
+Authorization
+Bearer [PushBulletAPI]
+{"type": "note", "channel_tag":"hlr","title": "온습도 알람", "body": "ID:%%channel_id%%\n현재시각:%%datetime%%\n현재온도:%%trigger%%"}
+
+
+4F_0325_AUC#4507
+4F_0332_AAA#4507
+ 4F_0525_SMSF
+
+ 6F_eSMLC
+6F_NSCP#BK
+
+
+{"type": "note", "channel_tag":"hlr","title": "6F_NSCP#BK 배터리 알람", "body": "배터리 리셋 또는 교체가 필요합니다."}
