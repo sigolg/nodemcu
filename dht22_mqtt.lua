@@ -1,7 +1,7 @@
 pin = 5 -- dht11 signal pin
 channelID = "409502"
 writeKey = "WKMTV2VSMBR2XU7P"
-time_between_sensor_readings = 300*1000*1000 --60000 means 60sec
+time_between_sensor_readings = 180*1000*1000 --60000 means 60sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
@@ -14,8 +14,12 @@ function readDHT()
         print("Humi: "..humi.."%")
     elseif status == dht.ERROR_CHECKSUM then
         print( "DHT Checksum error." )
+        print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+        node.dsleep(time_between_sensor_readings)
     elseif status == dht.ERROR_TIMEOUT then
         print( "DHT timed out." )
+        print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+        node.dsleep(time_between_sensor_readings)
     end
     dht = nil
 end
@@ -36,7 +40,7 @@ function sendData(temp,humi)
     function(client, reason)
             print("failed reason: " .. reason)
             print("Going to deep sleep for 60 seconds")
-            node.dsleep(60*1000*1000)
+            node.dsleep(time_between_sensor_readings)
     end)
 end
 
