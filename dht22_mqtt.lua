@@ -2,7 +2,7 @@ pin = 5 -- dht11 signal pin
 
 channelID = "409502"
 writeKey = "WKMTV2VSMBR2XU7P"
-time_between_sensor_readings = 180*1000*1000 --60000 means 60sec
+time_between_sensor_readings = 25*1000*1000 --25 means 25sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
@@ -35,16 +35,17 @@ function sendData(temp,humi)
         print("  Port: 1883")
         client:publish("channels/"..channelID.."/publish/"..writeKey,"field3="..temp.."&field4="..humi,0,0,function(client)
             client:close()
-            print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-            node.dsleep(time_between_sensor_readings)
+            print("Going to stay for "..(time_between_sensor_readings/1000000).." seconds")
+            
         end)
     end,
     function(client, reason)
             print("failed reason: " .. reason)
-            print("Going to deep sleep for 60 seconds")
+            print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings)
     end)
 end
 
 readDHT()
-sendData(temp,humi)  
+sendData(temp,humi)
+tmr.alarm(1,time_between_sensor_readings/1000000,1,function() readDHT()sendData(temp,humi)end)
