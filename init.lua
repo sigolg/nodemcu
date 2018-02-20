@@ -1,5 +1,5 @@
 -- 4F unicorn info
-client_ip="172.30.1.101"     -- 101부터 순차적으로 사용
+client_ip="172.30.1.102"         -- 101부터 순차적으로 사용
 
 function startup()
     if file.open("init.lua") == nil then

@@ -1,7 +1,7 @@
 pin = 5 -- dht11 signal pin
 
-channelID = "409502"
-writeKey = "WKMTV2VSMBR2XU7P"
+channelID = "430964"
+writeKey = "BZFXP8EBCU6Q8B9K"
 time_between_sensor_readings = 25*1000*1000 --25 means 25sec
 
 --- MQTT ---
