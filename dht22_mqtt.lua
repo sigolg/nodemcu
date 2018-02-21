@@ -1,7 +1,7 @@
 pin = 5 -- dht11 signal pin
-channelID = "409502"
-writeKey = "WKMTV2VSMBR2XU7P"
-time_between_sensor_readings = 300*1000*1000 --60000 means 60sec
+channelID = ""
+writeKey = ""
+time_between_sensor_readings = 1800*1000*1000 --60000 means 60sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
@@ -22,22 +22,27 @@ end
 
 --send data to thingspeak
 function sendData(temp,humi)
-    -- conection to thingspeak.com
-    print("Sending data to thingspeak.com")
-    m:connect( "mqtt.thingspeak.com" , 1883, 0, 0, function(client)
-        print("Connected to MQTT")
-        print("  IP: mqtt.thingspeak.com")
-        print("  Port: 1883")
-        client:publish("channels/"..channelID.."/publish/"..writeKey,"field1="..temp.."&field2="..humi,0,0,function(client)
+    if temp == -999 then
+        print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+        node.dsleep(time_between_sensor_readings)
+    else
+        -- conection to thingspeak.com
+        print("Sending data to thingspeak.com")
+        m:connect( "mqtt.thingspeak.com" , 1883, 0, 0, function(client)
+            print("Connected to MQTT")
+            print("  IP: mqtt.thingspeak.com")
+            print("  Port: 1883")
+            client:publish("channels/"..channelID.."/publish/"..writeKey,"field1="..temp.."&field2="..humi,0,0,function(client)
+                print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
+                node.dsleep(time_between_sensor_readings)    
+            end)
+        end,
+        function(client, reason)
+            print("failed reason: " .. reason)
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-            node.dsleep(time_between_sensor_readings)    
+            node.dsleep(time_between_sensor_readings) 
         end)
-    end,
-    function(client, reason)
-        print("failed reason: " .. reason)
-        print("Going to deep sleep for 60 seconds")
-        node.dsleep(60*1000*1000)
-    end)    
+    )
 end
 
 readDHT()
