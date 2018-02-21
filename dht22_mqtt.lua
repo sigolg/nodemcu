@@ -43,7 +43,7 @@ function sendData(temp,humi)
             print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
             node.dsleep(time_between_sensor_readings) 
         end)
-    )
+    end
 end
 
 readDHT()
