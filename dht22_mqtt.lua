@@ -1,7 +1,7 @@
 pin = 5 -- dht11 signal pin
 channelID = ""
 writeKey = ""
-time_between_sensor_readings = 1800*1000*1000 --60000 means 60sec
+time_between_sensor_readings = 180*1000*1000 --60000 means 60sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
@@ -33,6 +33,7 @@ function sendData(temp,humi)
             print("  IP: mqtt.thingspeak.com")
             print("  Port: 1883")
             client:publish("channels/"..channelID.."/publish/"..writeKey,"field1="..temp.."&field2="..humi,0,0,function(client)
+                client:close()
                 print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
                 node.dsleep(time_between_sensor_readings)    
             end)
