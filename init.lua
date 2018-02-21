@@ -1,5 +1,5 @@
 -- 4F unicorn info
-client_ip="172.30.1.102"         -- 101부터 순차적으로 사용
+client_ip="172.30.1.103"         -- 101부터 순차적으로 사용
 
 function startup()
     if file.open("init.lua") == nil then
@@ -26,8 +26,8 @@ i = 1
 tmr.alarm(1, 1000, 1, function()
     if wifi.sta.getrssi() == nil then
         if i == 30 then
-            print("Going to deep sleep for 300 seconds")
-            node.dsleep(25*1000*1000)
+            print("Going to deep sleep for 10 seconds")
+            node.dsleep(10*1000*1000)
         end
         print("Waiting for IP address...")
         i = i + 1

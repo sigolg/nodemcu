@@ -1,8 +1,8 @@
 pin = 5 -- dht11 signal pin
 
-channelID = "430964"
-writeKey = "BZFXP8EBCU6Q8B9K"
-time_between_sensor_readings = 25*1000*1000 --25 means 25sec
+channelID = ""
+writeKey = ""
+time_between_sensor_readings = 20*1000*1000 --25 means 25sec
 
 --- MQTT ---
 m = mqtt.Client(channelID, 120)
@@ -26,8 +26,8 @@ function sendData(temp,humi)
     -- conection to thingspeak.com
     print("Sending data to thingspeak.com")
     if temp == -999 then
-        print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-        node.dsleep(time_between_sensor_readings)
+        print("Going to deep sleep for 10 seconds")
+        node.dsleep(10*1000*1000)
     else
         m:connect( "mqtt.thingspeak.com" , 1883, 0, function(client)
             print("Connected to MQTT")
@@ -40,8 +40,8 @@ function sendData(temp,humi)
         end,
         function(client, reason)
                 print("failed reason: " .. reason)
-                print("Going to deep sleep for "..(time_between_sensor_readings/1000000).." seconds")
-                node.dsleep(time_between_sensor_readings)
+                print("Going to deep sleep for 10 seconds")
+                node.dsleep(10*1000*1000)
         end)
     end
 end
