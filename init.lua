@@ -1,5 +1,8 @@
 -- 4F unicorn info
 client_ip="172.30.1.101"     -- 101부터 순차적으로 사용
+station_cfg={}
+station_cfg.ssid="unicorn_0"
+station_cfg.pwd="00000034a1"
 
 function startup()
     if file.open("init.lua") == nil then
@@ -16,7 +19,7 @@ end
 print("Connecting to WiFi access point...")
 wifi.setmode(wifi.STATION)
 wifi.setphymode(wifi.PHYMODE_N)
-wifi.sta.config("unicorn_00", "00000034a1")
+wifi.sta.config(station_cfg)
 if client_ip ~= "" then
     wifi.sta.setip({ip=client_ip,netmask="255.255.255.0",gateway="172.30.1.254"})
 end
